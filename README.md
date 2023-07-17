@@ -1,2 +1,2 @@
-# MIssileCommand
-Unity C# Game
+# MissileCommand
+Game made with Unity
