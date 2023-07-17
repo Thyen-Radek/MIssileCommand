@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameOptions : MonoBehaviour
 {
+    // These options could be as panel in main menu (that's the reason of the singleton)
+    // At least some of them
+
     // Singleton pattern
     private static GameOptions _instance;
 
@@ -48,12 +51,11 @@ public class GameOptions : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             Destroy(this.gameObject);
-            Debug.LogError("More than one GameOptions in the scene");
         }
-        // DontDestroyOnLoad(this.gameObject);
     }
 }

@@ -6,14 +6,15 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveLoadManager
 {
+    private static string _path = Application.persistentDataPath + "/score.dat";
+
     // Just in case the file doesn't exist, we'll create it
     public static void CreateFile()
     {
-        string path = Application.persistentDataPath + "/score.dat";
-        if (!File.Exists(path))
+        if (!File.Exists(_path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Create);
+            FileStream stream = new FileStream(_path, FileMode.Create);
 
             ScoreData data = new ScoreData(0);
 
@@ -25,8 +26,7 @@ public static class SaveLoadManager
     public static void SaveScore(int score)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/score.dat";
-        FileStream stream = new FileStream(path, FileMode.Create);
+        FileStream stream = new FileStream(_path, FileMode.Create);
 
         ScoreData data = new ScoreData(score);
 
@@ -36,11 +36,10 @@ public static class SaveLoadManager
 
     public static int LoadScore()
     {
-        string path = Application.persistentDataPath + "/score.dat";
-        if (File.Exists(path))
+        if (File.Exists(_path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
+            FileStream stream = new FileStream(_path, FileMode.Open);
 
             ScoreData data = formatter.Deserialize(stream) as ScoreData;
             stream.Close();

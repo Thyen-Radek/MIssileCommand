@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameTags;
 
 public class SelfDestruction : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class SelfDestruction : MonoBehaviour
 
 
     private void OnTriggerEnter2D(Collider2D other){
-        if (other.tag == "Defenders")
+        if (other.tag == MyTags.Defenders)
         {
             // Just in case two explosions hit defender at the same frame
             if (!other.gameObject.GetComponent<CityController>().IsAlive()) return;
@@ -54,7 +55,7 @@ public class SelfDestruction : MonoBehaviour
 
             // Instead of destroying the city, we just disable it
             other.gameObject.SetActive(false);
-        } else if(other.tag == "MissileCommander"){
+        } else if(other.tag == MyTags.MissileCommander){
 
             _missileLauncher.SetActive(false);
             if (_gameManager.GetPlayerMissiles() > 0){

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameTags;
 
 public class MissileLauncher : MonoBehaviour, IEntity
 {
@@ -25,7 +26,7 @@ public class MissileLauncher : MonoBehaviour, IEntity
         _gameOptions = GameOptions.Instance;
         _myAudio = GetComponent<AudioSource>();
         _shipSpawnerController = GameObject.FindObjectOfType<ShipSpawnerController>();
-        _missilesLoadedObjects = GameObject.FindGameObjectsWithTag("Missiles");
+        _missilesLoadedObjects = GameObject.FindGameObjectsWithTag(MyTags.Missiles);
         _gameManager = FindObjectOfType<GameManager>();
     }
 

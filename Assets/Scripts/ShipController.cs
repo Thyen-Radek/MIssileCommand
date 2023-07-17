@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameTags;
 
 public class ShipController : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class ShipController : MonoBehaviour
         // Just in case you send two missiles near to the object and ship catch both of them at the same frame
         if (!_isAlive) return;
 
-        if (other.tag == "Defenders" )
+        if (other.tag == MyTags.Defenders)
         {
             EntityExplode();
             // Just in case two ships hit defender at the same frame
@@ -53,16 +54,16 @@ public class ShipController : MonoBehaviour
             // Instead of destroying the city, we just disable it
             other.gameObject.SetActive(false);
 
-        } else if ( other.tag == "Explosions"){
+        } else if (other.tag == MyTags.Explosions){
             EntityExplode();
 
             // Update score
             _gameManager.UpdateScore(ScoreType.Ship);
 
-        } else if (other.tag == "Terrain"){
+        } else if (other.tag == MyTags.Terrain){
             EntityExplode();
 
-        } else if (other.tag == "MissileCommander"){
+        } else if (other.tag == MyTags.MissileCommander){
             EntityExplode();
 
             _missileLauncher.SetActive(false);

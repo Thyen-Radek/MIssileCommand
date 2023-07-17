@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using GameTags;
 
 public class ShipSpawnerController : MonoBehaviour
 {
@@ -26,18 +27,15 @@ public class ShipSpawnerController : MonoBehaviour
         
         _gameOptions = GameOptions.Instance;
         _shipSpeed = _gameOptions.ShipSpeed;
-        GameObject[] defenders = GameObject.FindGameObjectsWithTag("Defenders");
+        GameObject[] defenders = GameObject.FindGameObjectsWithTag(MyTags.Defenders);
         _defendersPositions = new Vector3[defenders.Length + 1];
         _gameManager = FindObjectOfType<GameManager>();
-        Vector3 missileCommanderPosition = GameObject.FindGameObjectWithTag("MissileCommander").transform.position;
+        Vector3 missileCommanderPosition = GameObject.FindGameObjectWithTag(MyTags.MissileCommander).transform.position;
         _defendersPositions[0] = missileCommanderPosition;
         for (int i = 1; i < defenders.Length + 1; i++)
         {
             _defendersPositions[i] = defenders[i-1].transform.position;
         }
-        
-        // _defendersPositions = defenders.Select(defender => defender.transform.position).ToArray();
-        // _defendersPositions = _defendersPositions.Append(missileCommanderPosition).ToArray();
         _ySpawnPoint = Screen.height + _paddingTop;
 
     }
@@ -55,7 +53,6 @@ public class ShipSpawnerController : MonoBehaviour
         int numberOfShips;
         for (int i = 0; i < _gameOptions.PhasesCount; i++)
         {
-            // print("Phase " + i + " started");
             numberOfShips = Random.Range(_gameOptions.MinShipsPerPhase, _gameOptions.MaxShipsPerPhase);
             FindObjectOfType<GameManager>().UpdateShipsLeft(numberOfShips);
             for (int j = 0; j < numberOfShips; j++)
@@ -67,7 +64,6 @@ public class ShipSpawnerController : MonoBehaviour
             }
             yield return new WaitForSeconds(_gameOptions.SpawnRate / _shipSpeed);
         }
-        // print("Last phase started");
         for (int j = 0; j < 4; j++)
         {
             float randomX = Random.Range(_minX, _maxX);

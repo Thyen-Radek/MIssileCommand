@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using GameTags;
 
 public class GameManager : MonoBehaviour, IObserver
 {
@@ -45,15 +46,15 @@ public class GameManager : MonoBehaviour, IObserver
 
         _gameOptions = GameOptions.Instance;
         _shipSpeed = _gameOptions.ShipSpeed;
-        _cities = GameObject.FindGameObjectsWithTag("Defenders");
+        _cities = GameObject.FindGameObjectsWithTag(MyTags.Defenders);
 
-        _missileCommander = GameObject.Find("MissileCommander");
+        _missileCommander = GameObject.Find(MyTags.MissileCommander);
         _missileLauncher = _missileCommander.GetComponent<MissileLauncher>();
 
         _shipSpawnerController = GameObject.FindObjectOfType<ShipSpawnerController>();
         _highScore = SaveLoadManager.LoadScore();
         _userInterface.UpdateHighScoreText(_highScore);
-        _cityCount = GameObject.FindGameObjectsWithTag("Defenders").Length;
+        _cityCount = _cities.Length;
 
         _userInterface.UpdateScoreText(_score);
         _userInterface.UpdateLevelText(_level);
